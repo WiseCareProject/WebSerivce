@@ -28,4 +28,4 @@ module.exports = (app)=>{
   app.get('/test',
     checkController.check
   )
-}
+};
