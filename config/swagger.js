@@ -25,4 +25,4 @@ module.exports = (app,next) =>{
     app.use(middleware.swaggerValidator());
     next();
   });
-}
+};
