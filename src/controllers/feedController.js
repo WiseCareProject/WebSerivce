@@ -6,5 +6,3 @@ module.exports = {
         res.end("Portnoy");
     }
 };
-
-//0524893484
