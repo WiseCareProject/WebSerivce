@@ -2,10 +2,6 @@
  * Created by Or Adar on 3/16/2018.
  */
 
-/**
- * Created by Or Adar on 3/16/2018.
- */
-
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
@@ -17,6 +13,6 @@ const TemperatureActionSchema = new Schema({
     status:String
 });
 
-const TemperatureAction = mongoose.model('TemperatureActionSchema',TemperatureActionSchema);
+const TemperatureAction = mongoose.model('TemperatureAction',TemperatureActionSchema);
 
 module.exports = TemperatureAction;

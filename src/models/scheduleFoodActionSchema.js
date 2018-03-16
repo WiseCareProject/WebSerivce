@@ -16,6 +16,6 @@ const ScheduleFoodActionSchema = new Schema({
     timeOfDay:Date
 });
 
-const ScheduleFoodAction = mongoose.model('ScheduleFoodActionSchema',ScheduleFoodActionSchema);
+const ScheduleFoodAction = mongoose.model('ScheduleFoodAction',ScheduleFoodActionSchema);
 
 module.exports = ScheduleFoodAction;
