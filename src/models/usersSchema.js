@@ -15,6 +15,6 @@ const UsersSchema = new Schema({
     uniquePlatformId:String
 });
 
-const UsersSchema = mongoose.model('UsersSchema',UsersSchema);
+const Users = mongoose.model('UsersSchema',UsersSchema);
 
-module.exports = UsersSchema;
+module.exports = Users;
