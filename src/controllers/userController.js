@@ -3,25 +3,42 @@
  */
 const userServices = require('../services/userServices');
 
-function setUserSettings(req,res){
-    let settings = req.body ? req.body : {};
-    userServices.setUserSettings(settings).then(()=>{
+async function setUserSettings(req,res){
+    try{
+        let settings = req.body ? req.body : {};
+        await userServices.setUserSettings(settings);
         res.status(200).send({status:"userSettingsSaved"});
-    }).catch((err)=>{
+
+    }
+    catch (err){
         res.status(500).send({error:err});
-    });
+    }
 }
 
-function getUserSettingsByPlatformId(req,res){
-    let platformId = req.body ? req.body : {};
-    userServices.getUserSettingsByPlatformId(platformId).then((doc)=>{
+async function getUserSettingsByPlatformId(req,res){
+    try{
+        let platformId = req.body ? req.body : {};
+        let doc = await userServices.getUserSettingsByPlatformId(platformId);
         res.status(200).send(doc);
-    }).catch((err)=>{
-        res.status(404).send({error:err});
-    })
+    }
+    catch (err){
+        res.status(500).send({error:err});
+    }
+}
+
+async function createUser(req,res){
+    try{
+        let userParameters = req.body ? req.body : {};
+        await userServices.createUser(userParameters);
+        res.status(200).send({status:"User created successfully"});
+    }
+    catch (err){
+        res.status(400).send({error:err});
+    }
 }
 
 module.exports = {
     setUserSettings,
-    getUserSettingsByPlatformId
+    getUserSettingsByPlatformId,
+    createUser
 };

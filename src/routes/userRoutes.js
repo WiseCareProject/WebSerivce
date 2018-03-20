@@ -77,6 +77,41 @@ const userController = require('../controllers/userController');
  *              type: array
  *      500:
  *        description: server error
+ *
+ * /createUser:
+ *  post:
+ *    tags:
+ *      - user routes
+ *    summary: Create new user
+ *    consumes:
+ *      - application/json
+ *    parameters:
+ *      - in: body
+ *        name: createUser
+ *        description: Create new user
+ *        schema:
+ *          type: object
+ *          required:
+ *            - uniquePlatformId
+ *          properties:
+ *            uniquePlatformId:
+ *              type: string
+ *            firstName:
+ *              type: string
+ *            lastName:
+ *              type: string
+ *            userName:
+ *              type: string
+ *            email:
+ *              type: string
+ *            typeOfPet:
+ *              type: string
+ *
+ *    responses:
+ *      200:
+ *        description: get success object
+ *      400:
+ *        description: user creation failed
  */
 
 module.exports = (app)=>{
@@ -85,5 +120,9 @@ module.exports = (app)=>{
     );
     app.post('/getUserSettings',
         userController.getUserSettingsByPlatformId
+    );
+
+    app.post('/createUser',
+        userController.createUser
     );
 };
