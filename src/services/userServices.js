@@ -13,6 +13,17 @@ function setUserSettings(settings){
     })
 }
 
+function getUserSettingsByPlatformId(platformId){
+    userSettingsSchema.findOne({'uniquePlatformId':platformId},(err,doc)=>{
+        if (err){
+            throw err;
+        }else{
+            return doc;
+        }
+    })
+}
+
 module.exports = {
-    setUserSettings
+    setUserSettings,
+    getUserSettingsByPlatformId
 };

@@ -10,10 +10,18 @@ function setUserSettings(req,res){
     }).catch((err)=>{
         res.status(500).send({error:err});
     });
+}
 
-
+function getUserSettingsByPlatformId(req,res){
+    let platformId = req.body ? req.body : {};
+    userServices.getUserSettingsByPlatformId(platformId).then((doc)=>{
+        res.status(200).send(doc);
+    }).catch((err)=>{
+        res.status(404).send({error:err});
+    })
 }
 
 module.exports = {
-    setUserSettings
+    setUserSettings,
+    getUserSettingsByPlatformId
 };
