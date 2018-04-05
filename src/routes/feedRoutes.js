@@ -5,6 +5,6 @@
 const feedController = require('../controllers/feedController');
 module.exports = (app)=>{
     app.get('/feedNow',
-        feedController.feedNow
+        feedController.sendFeedingCommand
     );
 };

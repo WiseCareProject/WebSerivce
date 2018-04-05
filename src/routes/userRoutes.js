@@ -39,6 +39,9 @@ const userController = require('../controllers/userController');
  *        description: if success set the user settings
  *      500:
  *        description: server error
+ */
+/**
+ * @swagger
  * /getUserSettings:
  *  post:
  *    tags:
@@ -77,7 +80,9 @@ const userController = require('../controllers/userController');
  *              type: array
  *      500:
  *        description: server error
- *
+ */
+/**
+ * @swagger
  * /createUser:
  *  post:
  *    tags:
