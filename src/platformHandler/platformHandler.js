@@ -25,6 +25,12 @@ function sendUserSettings(settings){
     }
 }
 
+function fillWaterTank(){
+    if(platformSocket){
+        platformSocket.emit('fillWaterTank');
+    }
+}
+
 function feed(){
     if(platformSocket){
         platformSocket.emit('feed');
@@ -45,6 +51,7 @@ function openSocket(){
 module.exports = {
     openSocket,
     feed,
-    sendUserSettings
+    sendUserSettings,
+    fillWaterTank
 };
 

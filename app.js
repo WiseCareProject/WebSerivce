@@ -25,6 +25,7 @@ require('./config/swagger')(app,()=>{
   require('./src/routes/check.route')(app);
   require('./src/routes/feedRoutes')(app);
   require('./src/routes/userRoutes')(app);
+  require('./src/routes/drinkingRoutes')(app);
   app.listen(port, (err) => {
     if (err){
       throw err;

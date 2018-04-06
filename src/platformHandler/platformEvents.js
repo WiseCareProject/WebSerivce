@@ -13,5 +13,9 @@ module.exports = (socket)=>{
 
     socket.on('feeding',(status)=>{
         console.log(status);
+    });
+
+    socket.on('drinkFinish',status=>{
+       console.log(status);
     })
 };
