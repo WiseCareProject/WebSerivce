@@ -114,6 +114,51 @@ const userController = require('../controllers/userController');
  *
  *    responses:
  *      200:
+ *        description: if success get the user details
+ *        schema:
+ *          type: object
+ *          properties:
+ *            uniquePlatformId:
+ *              type: string
+ *            firstName:
+ *              type: string
+ *            lastName:
+ *              type: string
+ *            userName:
+ *              type: string
+ *            email:
+ *              type: string
+ *            registrationDate:
+ *              type: object
+ *            typeOfPet:
+ *              type: string
+ *
+ *      400:
+ *        description: server error
+ */
+/**
+ * @swagger
+ * /getUserDetails:
+ *  post:
+ *    tags:
+ *      - user routes
+ *    summary: Get user details
+ *    consumes:
+ *      - application/json
+ *    parameters:
+ *      - in: body
+ *        name: get user details
+ *        description: get the user registration details
+ *        schema:
+ *          type: object
+ *          required:
+ *            - uniquePlatformId
+ *          properties:
+ *            uniquePlatformId:
+ *              type: string
+ *
+ *    responses:
+ *      200:
  *        description: get success object
  *      400:
  *        description: user creation failed
@@ -130,4 +175,8 @@ module.exports = (app)=>{
     app.post('/createUser',
         userController.createUser
     );
+    app.post('/getUserDetails',
+        userController.getUserDetails
+    );
+
 };

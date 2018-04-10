@@ -37,8 +37,21 @@ async function createUser(req,res){
     }
 }
 
+async function getUserDetails(req,res){
+    try{
+        let uniqueId = req.body.uniquePlatformId ? req.body.uniquePlatformId : "";
+        let details = await userServices.getUserDetails(uniqueId);
+        console.log(details);
+        res.status(200).send(details);
+    }
+    catch (err){
+        res.status(400).send({error:err});
+    }
+}
+
 module.exports = {
     setUserSettings,
     getUserSettingsByPlatformId,
-    createUser
+    createUser,
+    getUserDetails
 };

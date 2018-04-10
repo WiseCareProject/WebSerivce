@@ -45,8 +45,21 @@ function createUser(userParameters){
 
 }
 
+function getUserDetails(uniqueId){
+    return new Promise((resolve,reject)=>{
+        userSchema.findOne({'uniquePlatformId':uniqueId},(err,doc)=>{
+            if (err){
+                reject (err);
+            }else{
+                resolve (doc);
+            }
+        })
+    });
+}
+
 module.exports = {
     setUserSettings,
     getUserSettingsByPlatformId,
-    createUser
+    createUser,
+    getUserDetails
 };
