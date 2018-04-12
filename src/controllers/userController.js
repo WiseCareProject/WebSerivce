@@ -17,7 +17,7 @@ async function setUserSettings(req,res){
 
 async function getUserSettingsByPlatformId(req,res){
     try{
-        let platformId = req.body ? req.body : {};
+        let platformId = req.body.uniquePlatformId ? req.body.uniquePlatformId : {};
         let doc = await userServices.getUserSettingsByPlatformId(platformId);
         res.status(200).send(doc);
     }
@@ -41,8 +41,9 @@ async function getUserDetails(req,res){
     try{
         let uniqueId = req.body.uniquePlatformId ? req.body.uniquePlatformId : "";
         let details = await userServices.getUserDetails(uniqueId);
-        console.log(details);
-        res.status(200).send(details);
+        res.status(200);
+        res.setHeader('Content-Type', 'application/json');
+        res.send(details);
     }
     catch (err){
         res.status(400).send({error:err});

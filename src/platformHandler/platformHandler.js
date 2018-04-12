@@ -2,6 +2,7 @@
  * Created by Or Adar on 4/4/2018.
  */
 const server = require('http').createServer();
+const ioreq = require("socket.io-request");
 
 let platformSocket;
 const io = require('socket.io')(server,{
@@ -31,9 +32,41 @@ function fillWaterTank(){
     }
 }
 
+function waterTankFloatStatus(){
+    if(platformSocket){
+        platformSocket.emit('waterTankFloatStatus')
+    }
+}
+
+function waterTankDistanceStatus(){
+    if(platformSocket){
+        ioreq(platformSocket).request('waterTankDistanceStatus').then((res) => {
+            console.log(res);
+        });
+    }
+}
+
+function foodTankAmount(){
+    if(platformSocket) {
+        ioreq(platformSocket).request('foodTankAmount').then((res) => {
+            console.log(res);
+        });
+    }
+}
+
+function foodPlateAmount(){
+    if(platformSocket) {
+        ioreq(platformSocket).request('getPlateAmount').then((res) => {
+            console.log(res);
+        });
+    }
+}
+
 function feed(){
     if(platformSocket){
-        platformSocket.emit('feed');
+        ioreq(platformSocket).request('feed').then((res)=>{
+           console.log(res);
+        });
     }
 }
 
@@ -52,6 +85,11 @@ module.exports = {
     openSocket,
     feed,
     sendUserSettings,
-    fillWaterTank
+    fillWaterTank,
+    waterTankFloatStatus,
+    waterTankDistanceStatus,
+    foodTankAmount,
+    foodPlateAmount
 };
 
+//192.168.1.21

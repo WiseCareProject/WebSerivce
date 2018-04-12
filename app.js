@@ -4,11 +4,12 @@ const app = express();
 const mongoose = require('mongoose');
 const config = require('./config/config');
 const bodyParser = require('body-parser');
-const server = require('http').createServer();
 const platformHnadler = require('./src/platformHandler/platformHandler');
+const schedule = require('node-schedule');
 
 // parse application/json
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
 
 mongoose.connect(config.dbUrl).catch((err)=>{
   console.log(err);
@@ -26,6 +27,7 @@ require('./config/swagger')(app,()=>{
   require('./src/routes/feedRoutes')(app);
   require('./src/routes/userRoutes')(app);
   require('./src/routes/drinkingRoutes')(app);
+  require('./src/routes/waterRoutes')(app);
   app.listen(port, (err) => {
     if (err){
       throw err;

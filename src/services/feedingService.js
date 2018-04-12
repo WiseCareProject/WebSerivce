@@ -7,6 +7,16 @@ function sendFeedCommand(){
     platformHandler.feed();
 }
 
+function sendTankAmountCommand(){
+    platformHandler.foodTankAmount();
+}
+
+function sendGetPlateAmountCommand(){
+    platformHandler.foodPlateAmount();
+}
+
 module.exports ={
-    sendFeedCommand
+    sendFeedCommand,
+    sendTankAmountCommand,
+    sendGetPlateAmountCommand
 };

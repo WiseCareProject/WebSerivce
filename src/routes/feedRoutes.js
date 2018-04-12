@@ -19,6 +19,52 @@
  *      - application/json
  *    responses:
  *      200:
+ *        description: if success feeding the pet
+ *        schema:
+ *          type: string
+ *      500:
+ *        description: server error
+ */
+/**
+ * @swagger
+ * /getTankAmount:
+ *  get:
+ *    tags:
+ *      - Feeding routes
+ *    description: Get the current tank amount of food
+ *    parameters:
+ *      - in: query
+ *        name: getTankAmount
+ *        description: get the current tank amount
+ *        required: false
+ *        type: string
+ *    produces:
+ *      - application/json
+ *    responses:
+ *      200:
+ *        description: if success get the amount of food of the tank
+ *        schema:
+ *          type: string
+ *      500:
+ *        description: server error
+ */
+/**
+ * @swagger
+ * /getPlateAmount:
+ *  get:
+ *    tags:
+ *      - Feeding routes
+ *    description: Get the current tank amount of food
+ *    parameters:
+ *      - in: query
+ *        name: getPlateAmount
+ *        description: get the current plate amount
+ *        required: false
+ *        type: string
+ *    produces:
+ *      - application/json
+ *    responses:
+ *      200:
  *        description: if success get the amount of food of the plate
  *        schema:
  *          type: string
@@ -30,5 +76,11 @@ const feedController = require('../controllers/feedController');
 module.exports = (app)=>{
     app.get('/feedNow',
         feedController.sendFeedingCommand
+    );
+    app.get('/getTankAmount',
+        feedController.getTankAmountCommand
+    );
+    app.get('/getPlateAmount',
+        feedController.getPlateAmountCommand
     );
 };

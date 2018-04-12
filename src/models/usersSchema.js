@@ -9,6 +9,7 @@ const UsersSchema = new Schema({
     firstName:String,
     lastName:String,
     userName:String,
+    password:String,
     email:String,
     registrationDate:{type:Date, default: Date.now},
     typeOfPet:String,

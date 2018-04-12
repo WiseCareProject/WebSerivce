@@ -107,6 +107,8 @@ const userController = require('../controllers/userController');
  *              type: string
  *            userName:
  *              type: string
+ *            password:
+ *              type: string
  *            email:
  *              type: string
  *            typeOfPet:
@@ -125,6 +127,8 @@ const userController = require('../controllers/userController');
  *            lastName:
  *              type: string
  *            userName:
+ *              type: string
+ *            password:
  *              type: string
  *            email:
  *              type: string
@@ -178,5 +182,4 @@ module.exports = (app)=>{
     app.post('/getUserDetails',
         userController.getUserDetails
     );
-
 };

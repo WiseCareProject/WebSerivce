@@ -17,5 +17,7 @@ module.exports = (socket)=>{
 
     socket.on('drinkFinish',status=>{
        console.log(status);
-    })
+    });
 };
+
+//192.168.1.17:3000
