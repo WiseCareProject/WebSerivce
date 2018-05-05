@@ -71,6 +71,34 @@
  *      500:
  *        description: server error
  */
+/**
+ * @swagger
+ * /getFullDetails:
+ *  get:
+ *    tags:
+ *      - Feeding routes
+ *    description: Get the full details amount the food device
+ *    parameters:
+ *      - in: query
+ *        name: getFullDetails
+ *        description: get the full details the food device
+ *        required: false
+ *        type: string
+ *    produces:
+ *      - application/json
+ *    responses:
+ *      200:
+ *        description: if success get the amount of food of the plate
+ *        schema:
+ *          type: object
+ *          properties:
+ *            tankAmount:
+ *              type: integer
+ *            plateAmount:
+ *              type: integer
+ *      500:
+ *        description: server error
+ */
 
 const feedController = require('../controllers/feedController');
 module.exports = (app)=>{
@@ -82,5 +110,8 @@ module.exports = (app)=>{
     );
     app.get('/getPlateAmount',
         feedController.getPlateAmountCommand
+    );
+    app.get('/getFullDetails',
+        feedController.getFullDetails
     );
 };

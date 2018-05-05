@@ -26,47 +26,52 @@ function sendUserSettings(settings){
     }
 }
 
-function fillWaterTank(){
+async function fillWaterTank(){
     if(platformSocket){
-        platformSocket.emit('fillWaterTank');
+        let res = await ioreq(platformSocket).request('fillWaterTank');
+        return res;
     }
 }
 
-function waterTankFloatStatus(){
+async function waterTankFloatStatus(){
     if(platformSocket){
-        platformSocket.emit('waterTankFloatStatus')
+        let res = await ioreq(platformSocket).request('waterTankFloatStatus');
+        return res;
     }
 }
 
-function waterTankDistanceStatus(){
+async function waterTankDistanceStatus(){
     if(platformSocket){
-        ioreq(platformSocket).request('waterTankDistanceStatus').then((res) => {
-            console.log(res);
-        });
+        let res = await ioreq(platformSocket).request('waterTankDistanceStatus');
+        return res;
     }
 }
 
-function foodTankAmount(){
+async function foodTankAmount(){
     if(platformSocket) {
-        ioreq(platformSocket).request('foodTankAmount').then((res) => {
-            console.log(res);
-        });
+        let res = await ioreq(platformSocket).request('foodTankAmount');
+        return res;
     }
 }
 
-function foodPlateAmount(){
+async function foodPlateAmount(){
     if(platformSocket) {
-        ioreq(platformSocket).request('getPlateAmount').then((res) => {
-            console.log(res);
-        });
+        let res = await ioreq(platformSocket).request('getPlateAmount');
+        return res;
     }
 }
 
-function feed(){
+async function feed(){
     if(platformSocket){
-        ioreq(platformSocket).request('feed').then((res)=>{
-           console.log(res);
-        });
+        let res = await ioreq(platformSocket).request('feed');
+        return res;
+    }
+}
+
+async function register(deviceProperties){
+    if(platformSocket){
+        let res = await ioreq(platformSocket).request('register',deviceProperties);
+        return res;
     }
 }
 
@@ -89,7 +94,8 @@ module.exports = {
     waterTankFloatStatus,
     waterTankDistanceStatus,
     foodTankAmount,
-    foodPlateAmount
+    foodPlateAmount,
+    register
 };
 
 //192.168.1.21

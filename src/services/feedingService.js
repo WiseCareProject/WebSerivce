@@ -4,19 +4,36 @@
 const platformHandler = require('../platformHandler/platformHandler');
 
 function sendFeedCommand(){
-    platformHandler.feed();
+    return platformHandler.feed();
 }
 
 function sendTankAmountCommand(){
-    platformHandler.foodTankAmount();
+    return platformHandler.foodTankAmount();
 }
 
 function sendGetPlateAmountCommand(){
-    platformHandler.foodPlateAmount();
+    return platformHandler.foodPlateAmount();
 }
+function getFullDetails(){
+    return new Promise(async (resolve,reject)=>{
+        let result = {};
+        let plateAmount = await platformHandler.foodPlateAmount();
+        let tankAmount  = await platformHandler.foodTankAmount();
+
+        result.plateAmount = plateAmount.status;
+        result.tankAmount = tankAmount.status;
+
+        resolve (result);
+    });
+
+}
+
+
+
 
 module.exports ={
     sendFeedCommand,
     sendTankAmountCommand,
-    sendGetPlateAmountCommand
+    sendGetPlateAmountCommand,
+    getFullDetails
 };

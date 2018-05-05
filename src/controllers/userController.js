@@ -2,15 +2,19 @@
  * Created by Or Adar on 3/16/2018.
  */
 const userServices = require('../services/userServices');
+const autoEvents = require('../platformHandler/autoEvents');
 
 async function setUserSettings(req,res){
     try{
         let settings = req.body ? req.body : {};
+        console.log(settings);
+        autoEvents.updateFeedingTimeObjectAndAutoMode(settings);
         await userServices.setUserSettings(settings);
         res.status(200).send({status:"userSettingsSaved"});
 
     }
     catch (err){
+        console.error(err);
         res.status(500).send({error:err});
     }
 }
@@ -50,9 +54,10 @@ async function getUserDetails(req,res){
     }
 }
 
+
 module.exports = {
     setUserSettings,
     getUserSettingsByPlatformId,
     createUser,
-    getUserDetails
+    getUserDetails,
 };

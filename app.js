@@ -5,7 +5,8 @@ const mongoose = require('mongoose');
 const config = require('./config/config');
 const bodyParser = require('body-parser');
 const platformHnadler = require('./src/platformHandler/platformHandler');
-const schedule = require('node-schedule');
+
+//const scheduleEvents = require('./src/platformHandler/autoEvents').triggerAutoFunctions();
 
 // parse application/json
 app.use(bodyParser.json());
@@ -28,6 +29,7 @@ require('./config/swagger')(app,()=>{
   require('./src/routes/userRoutes')(app);
   require('./src/routes/drinkingRoutes')(app);
   require('./src/routes/waterRoutes')(app);
+  require('./src/routes/registrationRoute')(app);
   app.listen(port, (err) => {
     if (err){
       throw err;
