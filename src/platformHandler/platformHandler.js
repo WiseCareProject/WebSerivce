@@ -75,6 +75,42 @@ async function register(deviceProperties){
     }
 }
 
+async function turnOnCoolingDevice(){
+    if(platformSocket){
+        let res = await ioreq(platformSocket).request('turnOnCooling');
+        return res;
+    }
+}
+
+async function turnOffCoolingDevice(){
+    if(platformSocket){
+        let res = await ioreq(platformSocket).request('turnOffCooling');
+        return res;
+    }
+}
+
+async function getTemperature(){
+    if(platformSocket){
+        let res = await ioreq(platformSocket).request('getTemperature');
+        return res;
+    }
+}
+
+async function turnOnHeat(){
+    if(platformSocket){
+        let res = await ioreq(platformSocket).request('turnOnHeat');
+        return res;
+    }
+}
+
+async function turnOffHeat(){
+    if(platformSocket){
+        let res = await ioreq(platformSocket).request('turnOffHeat');
+        return res;
+    }
+}
+
+
 function openSocket(){
 
     server.listen(3001,(err)=>{
@@ -95,7 +131,12 @@ module.exports = {
     waterTankDistanceStatus,
     foodTankAmount,
     foodPlateAmount,
-    register
+    register,
+    turnOnCoolingDevice,
+    turnOffCoolingDevice,
+    getTemperature,
+    turnOnHeat,
+    turnOffHeat
 };
 
 //192.168.1.21
