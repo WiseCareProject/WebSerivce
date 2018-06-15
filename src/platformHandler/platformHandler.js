@@ -61,6 +61,13 @@ async function foodPlateAmount(){
     }
 }
 
+async function clearScale(){
+    if(platformSocket) {
+        let res = await ioreq(platformSocket).request('clearScale');
+        return res;
+    }
+}
+
 async function feed(){
     if(platformSocket){
         let res = await ioreq(platformSocket).request('feed');
@@ -78,14 +85,14 @@ async function register(deviceProperties){
 async function turnOnCoolingDevice(){
     if(platformSocket){
         let res = await ioreq(platformSocket).request('turnOnCooling');
-        return res;
+        return {"Vent":"On"};
     }
 }
 
 async function turnOffCoolingDevice(){
     if(platformSocket){
         let res = await ioreq(platformSocket).request('turnOffCooling');
-        return res;
+        return {"Vent":"Off"};
     }
 }
 
@@ -99,14 +106,14 @@ async function getTemperature(){
 async function turnOnHeat(){
     if(platformSocket){
         let res = await ioreq(platformSocket).request('turnOnHeat');
-        return res;
+        return {"Blanket":"On"};
     }
 }
 
 async function turnOffHeat(){
     if(platformSocket){
         let res = await ioreq(platformSocket).request('turnOffHeat');
-        return res;
+        return {"Blanket":"Off"};
     }
 }
 
@@ -144,7 +151,8 @@ module.exports = {
     getTemperature,
     turnOnHeat,
     turnOffHeat,
-    devicesStatus
+    devicesStatus,
+    clearScale
 };
 
 //192.168.1.21

@@ -22,6 +22,11 @@ async function getFullDetails(req,res){
     res.status(200).send(result);
 }
 
+async function clearScale(req,res){
+    let result = await feedingService.clearScaleCommand();
+    res.status(200).send(result);
+}
+
 
 
 
@@ -29,5 +34,6 @@ module.exports = {
     sendFeedingCommand,
     getTankAmountCommand,
     getPlateAmountCommand,
-    getFullDetails
+    getFullDetails,
+    clearScale
 };

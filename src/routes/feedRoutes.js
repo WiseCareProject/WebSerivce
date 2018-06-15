@@ -99,7 +99,32 @@
  *      500:
  *        description: server error
  */
-
+/**
+ * @swagger
+ * /cleanScale:
+ *  get:
+ *    tags:
+ *      - Feeding routes
+ *    description: Reset the weight sensor
+ *    parameters:
+ *      - in: query
+ *        name: cleanScale
+ *        description: Reset the weight sensor
+ *        required: false
+ *        type: string
+ *    produces:
+ *      - application/json
+ *    responses:
+ *      200:
+ *        description: if success reset the weight sensor
+ *        schema:
+ *          type: object
+ *          properties:
+ *            status:
+ *              type: string
+ *      500:
+ *        description: server error
+ */
 const feedController = require('../controllers/feedController');
 module.exports = (app)=>{
     app.get('/feedNow',
@@ -113,5 +138,8 @@ module.exports = (app)=>{
     );
     app.get('/getFullDetails',
         feedController.getFullDetails
+    );
+    app.get('/cleanScale',
+        feedController.clearScale
     );
 };

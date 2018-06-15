@@ -28,6 +28,10 @@ function getFullDetails(){
 
 }
 
+function clearScaleCommand(){
+    return platformHandler.clearScale();
+}
+
 
 
 
@@ -35,5 +39,6 @@ module.exports ={
     sendFeedCommand,
     sendTankAmountCommand,
     sendGetPlateAmountCommand,
-    getFullDetails
+    getFullDetails,
+    clearScaleCommand
 };
