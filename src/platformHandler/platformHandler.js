@@ -3,7 +3,9 @@
  */
 const server = require('http').createServer();
 const ioreq = require("socket.io-request");
-
+const iostr = require('socket.io-stream');
+const fs = require('fs');
+let stream = iostr.createStream();
 let platformSocket;
 const io = require('socket.io')(server,{
     path: '/wiseCarePlatform',
@@ -15,10 +17,13 @@ const io = require('socket.io')(server,{
 
 
     io.on('connection',(socket)=>{
+
     console.log('new connection');
     const platformEvents = require('./platformEvents')(socket);
     platformSocket = socket;
     });
+
+
 
 function sendUserSettings(settings){
     if(platformSocket) {
@@ -124,6 +129,19 @@ async function devicesStatus(){
     }
 }
 
+async function getSnapshot(){
+    return new Promise ((resolve,reject)=>{
+        iostr(platformSocket).emit('getSnap',stream);
+        stream.pipe(fs.createWriteStream('image.jpg'));
+        resolve();
+    });
+}
+
+function resetStream(){
+    stream.end();
+    stream = iostr.createStream();
+}
+
 
 function openSocket(){
 
@@ -152,7 +170,9 @@ module.exports = {
     turnOnHeat,
     turnOffHeat,
     devicesStatus,
-    clearScale
+    clearScale,
+    getSnapshot,
+    resetStream
 };
 
 //192.168.1.21

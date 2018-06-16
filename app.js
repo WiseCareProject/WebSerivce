@@ -31,6 +31,7 @@ require('./config/swagger')(app,()=>{
   require('./src/routes/waterRoutes')(app);
   require('./src/routes/registrationRoute')(app);
   require('./src/routes/enviromentRoute')(app);
+  require('./src/routes/cameraRoutes')(app);
   app.listen(port, (err) => {
     if (err){
       throw err;
