@@ -18,14 +18,14 @@ async function sendFillWaterCommand(req,res){
     res.status(200).send({status:"filling"});
 }
 
-async function getFullWaterDetails(req,res){
-    let result = await waterService.getFullDetailsCommand();
-    res.status(200).send({result});
-}
+// async function getFullWaterDetails(req,res){
+//     let result = await waterService.getFullDetailsCommand();
+//     res.status(200).send({result});
+// }
 
 module.exports = {
     sendWaterLevelCommand,
     sendWaterFloatSwitchCommand,
     sendFillWaterCommand,
-    getFullWaterDetails
+    //getFullWaterDetails
 };

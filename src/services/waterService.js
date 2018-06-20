@@ -15,24 +15,24 @@ function fillWaterCommand(){
     return platformHandler.fillWaterTank();
 }
 
-function getFullDetailsCommand(){
-    return new Promise(async (resolve,reject)=>{
-        let result = {};
-        let floatSwitch = await platformHandler.waterTankFloatStatus();
-        let distance  = await platformHandler.waterTankDistanceStatus();
-
-        result.floatSwitch = floatSwitch.amount;
-        result.levelOfWater = distance.amount;
-
-        resolve (result);
-    });
-}
+// function getFullDetailsCommand(){
+//     return new Promise(async (resolve,reject)=>{
+//         let result = {};
+//         let floatSwitch = await platformHandler.waterTankFloatStatus();
+//         //let distance  = await platformHandler.waterTankDistanceStatus();
+//
+//         result.floatSwitch = floatSwitch.amount;
+//        // result.levelOfWater = distance.amount;
+//
+//         resolve (result);
+//     });
+// }
 
 
 module.exports = {
     waterLevelCommand,
     waterFloatSwitchCommand,
     fillWaterCommand,
-    getFullDetailsCommand
+   // getFullDetailsCommand
 
 };

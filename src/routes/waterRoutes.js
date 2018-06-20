@@ -70,34 +70,6 @@
  *      500:
  *        description: server error
  */
-/**
- * @swagger
- * /getFullWaterDetails:
- *  get:
- *    tags:
- *      - Water routes
- *    description: Get the full details of the water device
- *    parameters:
- *      - in: query
- *        name: getFullWaterDetails
- *        description: Get the full details of the water device
- *        required: false
- *        type: string
- *    produces:
- *      - application/json
- *    responses:
- *      200:
- *        description: if success get the details of the water device
- *        schema:
- *          type: object
- *          properties:
- *            floatSwitch:
- *              type: string
- *            levelOfWater:
- *              type: integer
- *      500:
- *        description: server error
- */
 const waterController = require('../controllers/waterController');
 
 module.exports = (app)=>{
@@ -110,8 +82,8 @@ module.exports = (app)=>{
     app.get('/fillUpWater',
         waterController.sendFillWaterCommand
     );
-    app.get('/getFullWaterDetails',
-        waterController.getFullWaterDetails
-    );
+    // app.get('/getFullWaterDetails',
+    //     waterController.getFullWaterDetails
+    // );
 };
 

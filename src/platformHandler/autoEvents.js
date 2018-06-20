@@ -4,11 +4,14 @@
 const schedule = require('node-schedule');
 const platformHandler = require('../platformHandler/platformHandler');
 let feedingTimeObject = {
-    hour:19,
-    minute:48,
+    hour:0,
+    minute:0,
 };
 let isAuto = false;
-let feedingSchedule;
+let feedingSchedule=null;
+
+let waterInterval;
+let temperatureInterval;
 
 function updateFeedingTimeObjectAndAutoMode(userSettings){
 
@@ -16,21 +19,31 @@ function updateFeedingTimeObjectAndAutoMode(userSettings){
    feedingTimeObject.hour = date.getHours();
    feedingTimeObject.minute = date.getMinutes();
    isAuto = userSettings.isAutomated;
-   feedingSchedule.cancel();
-   triggerAutoFunctions();
+   if (isAuto){
+       if(feedingSchedule){
+           feedingSchedule.cancel();
+       }
+       feedingSchedule = schedule.scheduleJob(`${feedingTimeObject.minute} ${feedingTimeObject.hour} * * *`,()=>{
+           platformHandler.feed();
+           return;
+       });
+       waterInterval = setInterval(async ()=>{
+           let res = await platformHandler.waterTankFloatStatus();
+       },3000);
+       temperatureInterval = setInterval(async ()=>{
+           let res = await platformHandler.getTemperature();
+       },3000);
+   }
+   else{
+       feedingSchedule.cancel();
+       feedingSchedule = null;
+       clearInterval(waterInterval);
+       clearInterval(temperatureInterval);
+   }
 }
 
-function triggerAutoFunctions(){
-    feedingSchedule = schedule.scheduleJob(feedingTimeObject, async function () {
-        if(isAuto){
-           let result = await platformHandler.feed();
-           console.log("Just automated fed you pet "+result)
-        }
-    });
-}
 
 
 module.exports  = {
-    triggerAutoFunctions,
     updateFeedingTimeObjectAndAutoMode
 };

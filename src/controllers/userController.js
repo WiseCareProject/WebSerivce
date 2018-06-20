@@ -7,7 +7,6 @@ const autoEvents = require('../platformHandler/autoEvents');
 async function setUserSettings(req,res){
     try{
         let settings = req.body ? req.body : {};
-        console.log(settings);
         autoEvents.updateFeedingTimeObjectAndAutoMode(settings);
         await userServices.setUserSettings(settings);
         res.status(200).send({status:"userSettingsSaved"});

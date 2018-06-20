@@ -20,8 +20,8 @@ function getFullDetails(){
         let plateAmount = await platformHandler.foodPlateAmount();
         let tankAmount  = await platformHandler.foodTankAmount();
 
-        result.plateAmount = plateAmount.status;
-        result.tankAmount = tankAmount.status;
+        result.plateAmount = plateAmount ? plateAmount.status : "";
+        result.tankAmount = tankAmount ? tankAmount.status : "";
 
         resolve (result);
     });

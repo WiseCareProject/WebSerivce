@@ -6,8 +6,6 @@ const config = require('./config/config');
 const bodyParser = require('body-parser');
 const platformHnadler = require('./src/platformHandler/platformHandler');
 
-//const scheduleEvents = require('./src/platformHandler/autoEvents').triggerAutoFunctions();
-
 // parse application/json
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
