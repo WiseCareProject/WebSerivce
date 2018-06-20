@@ -66,9 +66,9 @@ async function foodPlateAmount(){
     }
 }
 
-async function clearScale(){
+async function stopServo(){
     if(platformSocket) {
-        let res = await ioreq(platformSocket).request('clearScale');
+        let res = await ioreq(platformSocket).request('stopServo');
         return res;
     }
 }
@@ -170,7 +170,7 @@ module.exports = {
     turnOnHeat,
     turnOffHeat,
     devicesStatus,
-    clearScale,
+    stopServo,
     getSnapshot,
     resetStream
 };

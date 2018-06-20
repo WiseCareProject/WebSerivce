@@ -22,8 +22,8 @@ async function getFullDetails(req,res){
     res.status(200).send(result);
 }
 
-async function clearScale(req,res){
-    let result = await feedingService.clearScaleCommand();
+async function stopServo(req,res){
+    let result = await feedingService.stopServoCommand();
     res.status(200).send(result);
 }
 
@@ -35,5 +35,5 @@ module.exports = {
     getTankAmountCommand,
     getPlateAmountCommand,
     getFullDetails,
-    clearScale
+    stopServo
 };

@@ -101,22 +101,22 @@
  */
 /**
  * @swagger
- * /cleanScale:
+ * /stopServo:
  *  get:
  *    tags:
  *      - Feeding routes
- *    description: Reset the weight sensor
+ *    description: stop servo
  *    parameters:
  *      - in: query
- *        name: cleanScale
- *        description: Reset the weight sensor
+ *        name: stop Servo
+ *        description: stop servo
  *        required: false
  *        type: string
  *    produces:
  *      - application/json
  *    responses:
  *      200:
- *        description: if success reset the weight sensor
+ *        description: if success stop the servo
  *        schema:
  *          type: object
  *          properties:
@@ -139,7 +139,7 @@ module.exports = (app)=>{
     app.get('/getFullDetails',
         feedController.getFullDetails
     );
-    app.get('/cleanScale',
-        feedController.clearScale
+    app.get('/stopServo',
+        feedController.stopServo
     );
 };

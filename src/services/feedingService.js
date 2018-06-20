@@ -28,8 +28,8 @@ function getFullDetails(){
 
 }
 
-function clearScaleCommand(){
-    return platformHandler.clearScale();
+function stopServoCommand(){
+    return platformHandler.stopServo();
 }
 
 
@@ -40,5 +40,5 @@ module.exports ={
     sendTankAmountCommand,
     sendGetPlateAmountCommand,
     getFullDetails,
-    clearScaleCommand
+    stopServoCommand
 };
