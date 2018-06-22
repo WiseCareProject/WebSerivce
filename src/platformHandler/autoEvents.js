@@ -28,11 +28,17 @@ function updateFeedingTimeObjectAndAutoMode(userSettings){
            return;
        });
        waterInterval = setInterval(async ()=>{
-           let res = await platformHandler.waterTankFloatStatus();
-       },3000);
+           let res = await platformHandler.waterTankFloatStatusForAuto();
+           if (res && res.amount){
+               if (res.amount === "EMPTY"){
+                   platformHandler.fillWaterTank();
+               }
+           }
+       },300000);
        temperatureInterval = setInterval(async ()=>{
-           let res = await platformHandler.getTemperature();
-       },3000);
+          // let res = await platformHandler.getTemperature();
+          // console.log(res);
+       },500000);
    }
    else{
        feedingSchedule.cancel();
