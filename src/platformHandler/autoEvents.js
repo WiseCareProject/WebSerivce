@@ -16,7 +16,7 @@ let temperatureInterval;
 function updateFeedingTimeObjectAndAutoMode(userSettings){
 
     let date = new Date(feedingTimeObject.hour = userSettings.feedingTime[0]);
-   feedingTimeObject.hour = date.getHours();
+   feedingTimeObject.hour = (date.getHours() - 3);
    feedingTimeObject.minute = date.getMinutes();
    isAuto = userSettings.isAutomated;
    if (isAuto){
