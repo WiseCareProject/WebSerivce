@@ -64,7 +64,9 @@ function updateFeedingTimeObjectAndAutoMode(userSettings){
        },500000);
    }
    else{
-       feedingSchedule.cancel();
+       if(feedingSchedule){
+           feedingSchedule.cancel();
+       }
        feedingSchedule = null;
        clearInterval(waterInterval);
        clearInterval(temperatureInterval);
