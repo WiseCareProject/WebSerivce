@@ -54,6 +54,15 @@ async function waterTankFloatStatusForAuto(){
     }
 }
 
+async function temperatureStatusForAuto(){
+    if(platformSocket){
+        return new Promise (async (resolve,reject)=>{
+            let res = await ioreq(platformSocket).request('getTemperature');
+            resolve(res);
+        });
+    }
+}
+
 async function waterTankDistanceStatus(){
     if(platformSocket){
         let res = await ioreq(platformSocket).request('waterTankDistanceStatus');
@@ -182,7 +191,8 @@ module.exports = {
     stopServo,
     getSnapshot,
     resetStream,
-    waterTankFloatStatusForAuto
+    waterTankFloatStatusForAuto,
+    temperatureStatusForAuto
 };
 
 //192.168.1.21

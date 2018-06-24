@@ -7,6 +7,11 @@ let feedingTimeObject = {
     hour:0,
     minute:0,
 };
+let userBaselineTemp = {
+    maxTemp:0,
+    minTemp:0
+};
+
 let isAuto = false;
 let feedingSchedule=null;
 
@@ -18,6 +23,8 @@ function updateFeedingTimeObjectAndAutoMode(userSettings){
     let date = new Date(feedingTimeObject.hour = userSettings.feedingTime[0]);
    feedingTimeObject.hour = (date.getHours() - 3);
    feedingTimeObject.minute = date.getMinutes();
+   userBaselineTemp.maxTemp = userSettings.maxTemperature ? userSettings.maxTemperature : 40;
+   userBaselineTemp.minTemp = userSettings.lowTemperature ? userSettings.lowTemperature : 20;
    isAuto = userSettings.isAutomated;
    if (isAuto){
        if(feedingSchedule){
@@ -36,8 +43,24 @@ function updateFeedingTimeObjectAndAutoMode(userSettings){
            }
        },300000);
        temperatureInterval = setInterval(async ()=>{
-          // let res = await platformHandler.getTemperature();
-          // console.log(res);
+           let res = await platformHandler.getTemperature();
+          if (res && res.temp){
+              let temp = parseInt(res.temp);
+
+              if (temp>= userBaselineTemp.minTemp && temp<= userBaselineTemp.maxTemp){
+                  await platformHandler.turnOffHeat();
+                  await platformHandler.turnOffCoolingDevice();
+              }
+
+              if (temp> userBaselineTemp.maxTemp){
+                  await platformHandler.turnOnCoolingDevice();
+              }
+
+              if (temp< userBaselineTemp.minTemp){
+                  await platformHandler.turnOnHeat();
+              }
+
+          }
        },500000);
    }
    else{
