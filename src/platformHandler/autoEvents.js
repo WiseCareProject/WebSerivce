@@ -15,8 +15,55 @@ let userBaselineTemp = {
 let isAuto = false;
 let feedingSchedule=null;
 
-let waterInterval;
-let temperatureInterval;
+let waterInterval = null;
+let temperatureInterval = null;
+let plateInterval = null;
+let currentPlate=null;
+
+async function activateWaterInterval(){
+    let res = await platformHandler.waterTankFloatStatusForAuto();
+    if (res && res.amount){
+        if (res.amount === "EMPTY"){
+            platformHandler.fillWaterTank();
+        }
+    }
+}
+
+async function activateTemperatureInterval(){
+    let res = await platformHandler.getTemperature();
+    if (res && res.temp){
+        let temp = parseInt(res.temp);
+
+        if (temp>= userBaselineTemp.minTemp && temp<= userBaselineTemp.maxTemp){
+            await platformHandler.turnOffHeat();
+            await platformHandler.turnOffCoolingDevice();
+        }
+
+        if (temp> userBaselineTemp.maxTemp){
+            await platformHandler.turnOnCoolingDevice();
+        }
+
+        if (temp< userBaselineTemp.minTemp){
+            await platformHandler.turnOnHeat();
+        }
+
+    }
+}
+
+async function activateCameraInterval(){
+        let res = await platformHandler.foodPlateAmountAutoMode();
+        console.log(res);
+        if (res && res.status){
+            if(!currentPlate){
+                currentPlate = res.status;
+            }else{
+                if(currentPlate - res.status > 15 || res.status-currentPlate>15){
+                    platformHandler.getSnapshot();
+                    currentPlate = null;
+                }
+            }
+        }
+}
 
 function updateFeedingTimeObjectAndAutoMode(userSettings){
 
@@ -34,34 +81,9 @@ function updateFeedingTimeObjectAndAutoMode(userSettings){
            platformHandler.feed();
            return;
        });
-       waterInterval = setInterval(async ()=>{
-           let res = await platformHandler.waterTankFloatStatusForAuto();
-           if (res && res.amount){
-               if (res.amount === "EMPTY"){
-                   platformHandler.fillWaterTank();
-               }
-           }
-       },300000);
-       temperatureInterval = setInterval(async ()=>{
-           let res = await platformHandler.getTemperature();
-          if (res && res.temp){
-              let temp = parseInt(res.temp);
-
-              if (temp>= userBaselineTemp.minTemp && temp<= userBaselineTemp.maxTemp){
-                  await platformHandler.turnOffHeat();
-                  await platformHandler.turnOffCoolingDevice();
-              }
-
-              if (temp> userBaselineTemp.maxTemp){
-                  await platformHandler.turnOnCoolingDevice();
-              }
-
-              if (temp< userBaselineTemp.minTemp){
-                  await platformHandler.turnOnHeat();
-              }
-
-          }
-       },500000);
+       waterInterval = setInterval(activateWaterInterval, 300000);
+       temperatureInterval = setInterval(activateTemperatureInterval,500000);
+       plateInterval = setInterval(activateCameraInterval ,3000);
    }
    else{
        if(feedingSchedule){
@@ -70,6 +92,7 @@ function updateFeedingTimeObjectAndAutoMode(userSettings){
        feedingSchedule = null;
        clearInterval(waterInterval);
        clearInterval(temperatureInterval);
+       clearInterval(plateInterval);
    }
 }
 

@@ -84,6 +84,15 @@ async function foodPlateAmount(){
     }
 }
 
+async function foodPlateAmountAutoMode(){
+    if(platformSocket) {
+        return new Promise(async (resolve,reject)=>{
+            let res = await ioreq(platformSocket).request('getPlateAmount');
+            resolve (res);
+        });
+    }
+}
+
 async function stopServo(){
     if(platformSocket) {
         let res = await ioreq(platformSocket).request('stopServo');
@@ -192,7 +201,8 @@ module.exports = {
     getSnapshot,
     resetStream,
     waterTankFloatStatusForAuto,
-    temperatureStatusForAuto
+    temperatureStatusForAuto,
+    foodPlateAmountAutoMode
 };
 
 //192.168.1.21
